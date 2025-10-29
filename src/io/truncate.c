@@ -7,5 +7,13 @@
 int truncate(const char *path, off_t length)
 {
 	/* TODO: Implement truncate(). */
-	return -1;
+	// Syscall-ul (x86-64, 64 biti=long) aferent truncate-ului
+	long ret = syscall(__NR_truncate, path, length);
+
+	if (ret < 0) {
+		errno = -ret;
+		return -1;
+	} else {
+		return 0;
+	}
 }

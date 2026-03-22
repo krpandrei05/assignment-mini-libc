@@ -7,5 +7,12 @@
 int ftruncate(int fd, off_t length)
 {
 	/* TODO: Implement ftruncate(). */
-	return -1;
+	// Syscall-ul (x86-64, 64 biti=long) aferent ftruncate-ului
+	long ret = syscall(__NR_ftruncate, fd, length);
+	if (ret < 0) {
+		errno = -ret;
+		return -1;
+	} else {
+		return 0;
+	}
 }

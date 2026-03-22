@@ -8,5 +8,13 @@
 int close(int fd)
 {
 	/* TODO: Implement close(). */
-	return -1;
+	// Syscall-ul (x86-64, 64 biti=long) aferent close-ului
+	long ret = syscall(__NR_close, fd);
+
+	if (ret < 0) {
+		errno = -ret;
+		return -1;
+	} else {
+		return 0;
+	}
 }
